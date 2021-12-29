@@ -36,3 +36,41 @@
 
 - 형제 요소에서 데이터를 공유하는 방법은 매우 제한적이다. 그렇기에 중앙집중 저장소인 Vuex를 이용한다.
   ![Vuex](./readme/Vuex.png)
+
+- install : **npm i vuex@next**
+- src/store 폴더 생성
+- 폴더 안에 파일이 하나면 폴더명만 입력해주면 자동으로 찾아준다. (index.js만 가능)
+
+## movie.js
+
+```js
+export default {
+  // module이라는 것을 명시
+  namespaced: true,
+  // data!
+  state: () => ({
+    movies: [],
+  }),
+  // computed!
+  getters: {
+    movieIds(state) {
+      return state.movies.map((m) => m.imdbID);
+    },
+  },
+  // methods!
+  // 변이. -> mutations에서만 데이터를 변경할 수 있다.
+  mutations: {
+    resetMovies(state) {
+      state.movies = [];
+    },
+  },
+  // 비동기
+  actions: {
+    searchMovies() {},
+  },
+};
+```
+
+- Store의 **Mutations**를 실행할 때는 **.commit()** 메소드를, **Actions**를 실행할 때는 **.dispatch()** 메소드를 사용한다.
+
+- Stroe에 접근하기 위해 this.$store.dispatch!

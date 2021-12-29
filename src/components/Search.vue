@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -66,10 +65,13 @@ export default {
   },
   methods: {
     async apply() {
-      const OMDB_API_KEY = 'b4216094'
-      // Search movies...
-      const res = await axios.get(`https://www.omdbapi.com/?i=tt3896198&apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=1`)
-      console.log(res)
+      //movie는 store에 명시된 movie의 경로에 있는, 으로 해석
+      this.$store.dispatch('movie/searchMovies',{
+        title: this.title,
+        type: this.type,
+        number: this.number,
+        year: this.year,
+      })
     }
   }
 
