@@ -17,7 +17,7 @@
           value="">
           All Years
         </option>
-        <option 
+        <option
           v-for="item in filter.items"
           :key="item">
           {{ item }}
@@ -36,51 +36,50 @@
 export default {
   data() {
     return {
-      title: '',
-      type: 'movie',
+      title: "",
+      type: "movie",
       number: 10,
-      year: '',
+      year: "",
       filters: [
         {
-          name: 'type',
-          items: ['movie','series','episode'],
+          name: "type",
+          items: ["movie", "series", "episode"],
         },
         {
-          name: 'number',
-          items: [10, 20, 30]
+          name: "number",
+          items: [10, 20, 30],
         },
         {
-          name: 'year',
+          name: "year",
           items: (() => {
-            const years = []
-            const thisYear = new Date().getFullYear() // 2021
-            for (let i = thisYear; i>= 1985; i-=1){
-              years.push(i)
+            const years = [];
+            const thisYear = new Date().getFullYear(); // 2021
+            for (let i = thisYear; i >= 1985; i -= 1) {
+              years.push(i);
             }
-            return years
-          })()
-        }
-      ]
-    }
+            return years;
+          })(),
+        },
+      ],
+    };
   },
   methods: {
     async apply() {
       //movie는 store에 명시된 movie의 경로에 있는, 으로 해석
-      this.$store.dispatch('movie/searchMovies',{
+      this.$store.dispatch("movie/searchMovies", {
         title: this.title,
         type: this.type,
         number: this.number,
         year: this.year,
-      })
-    }
-  }
-
-}
+      });
+    },
+  },
+};
 </script>
 
 
 <style lang="scss" scoped>
-.container{
+.container {
   > * {
     font-size: 15px;
     margin-right: 10px;
@@ -91,10 +90,10 @@ export default {
   display: flex;
   .selects {
     display: flex;
-    select{
+    select {
       width: 120px;
       margin-right: 10px;
-      &:last-child{
+      &:last-child {
         margin-right: 0;
       }
     }
@@ -104,6 +103,23 @@ export default {
     height: 50px;
     font-weight: 700;
     flex-shrink: 0;
+  }
+  @include media-breakpoint-down(lg) {
+    display: block;
+    input {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    .selects {
+      margin-right: 0;
+      margin-bottom: 10px;
+      select {
+        width: 100%;
+      }
+    }
+    .btn {
+      width: 100%;
+    }
   }
 }
 </style>

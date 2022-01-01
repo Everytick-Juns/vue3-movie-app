@@ -1,13 +1,17 @@
 import axios from 'axios'
 import _uniqBy from 'lodash/uniqBy'
+
+const _defaultMessage = "Search for the movie title!"
+
 export default {
   // module이라는 것을 명시
   namespaced: true,
   // data!
   state: () => ({
     movies: [],
-    message: '',
-    loading: false
+    message: _defaultMessage,
+    loading: false,
+    theMovie: {}
   }),
   // computed!
   getters: {},
@@ -24,11 +28,20 @@ export default {
     },
     resetMovies(state) {
       state.movies = []
+      state.message = _defaultMessage
+      state.loading = false
     }
   },
   // 비동기
   actions: {
     async searchMovies({ state, commit }, payload) {
+      if (state.loading) return
+
+      commit('updateState', {
+        message: '',
+        loading: true
+      })
+
       try {
         // Search movies...
         const res = await _fetchMovie({
@@ -69,16 +82,46 @@ export default {
           movies: [],
           message
         })
+      } finally {
+        commit('updateState', {
+          loading: false,
+        })
       }
-    }
+      
+    },
+    async searchMovieWithId({ state, commit}, payload) {
+      if (state.loading) return
+      commit('updateState', {
+        theMovie: {},
+        loading: true,
+
+      })
+      
+
+      try {
+        const res = await _fetchMovie(payload)
+        commit('updateState', {
+          theMovie: res.data
+        })
+        } catch (error) {
+        commit('updateState', {
+          theMovie: {}
+          })
+      } finally {
+        commit('updateState', {
+          loading: false
+        })
+        }
+      }
   }
 }
 
 function _fetchMovie(payload) {
-  const { title, type, year, page } = payload
+  const { title, type, year, page, id } = payload
   const OMDB_API_KEY = 'b4216094'
-  const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
-  // const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}`
+  const url = id
+    ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}`
+    : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
 
   return new Promise((resolve, reject) => {
     axios.get(url)

@@ -31,12 +31,17 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use : [
+        use: [
           'vue-style-loader',
           'style-loader',
           'css-loader',
           'postcss-loader',
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: "@import '~/scss/main';"
+            }
+          },
           
         ]
       },
