@@ -9,3 +9,9 @@
 # 스켈레톤 UI
 
 - 로딩중 일 때 미리 화면 뼈대를 보여주는 것.
+
+# Netlify CLI
+
+- install : npm i -D netlify-cli
+- package.json 수정
+-
