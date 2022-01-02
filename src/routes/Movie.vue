@@ -137,7 +137,7 @@ export default {
   display: flex;
   .poster {
     width: 500px;
-    height: 500px * 3 / 2;
+    height: calc(500px * 3 / 2);
     margin-right: 70px;
     flex-shrink: 0;
   }
@@ -174,7 +174,7 @@ export default {
   color: $gray-600;
   .poster {
     width: 500px;
-    height: 500px * 3 / 2;
+    height: calc(500px * 3 / 2);
     margin-right: 70px;
     border-radius: 10px;
     background-color: $gray-200;
@@ -233,7 +233,7 @@ export default {
   @include media-breakpoint-down(xl) {
     .poster {
       width: 300px;
-      height: 300px * 3 / 2;
+      height: calc(300px * 3 / 2);
       margin-right: 40px;
     }
   }
