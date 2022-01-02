@@ -15,3 +15,7 @@
 - install : npm i -D netlify-cli
 - package.json 수정
 -
+
+# npm i -D dotenv-webpack
+
+- env를 사용하기 위한 module
