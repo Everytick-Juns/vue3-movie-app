@@ -89,7 +89,7 @@ export default {
       }
       
     },
-    async searchMovieWithId({ state, commit}, payload) {
+    async searchMovieWithId({ state, commit }, payload) {
       if (state.loading) return
       commit('updateState', {
         theMovie: {},
